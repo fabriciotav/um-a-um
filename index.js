@@ -67,5 +67,5 @@ app.post('/api/selecoes', function(req, res){
     });
 });
 
-app.listen(80);
-console.log('Express started on port 3000');
+app.listen(8787);
+console.log('Express started on port 8787');
