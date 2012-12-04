@@ -68,4 +68,4 @@ app.post('/api/selecoes', function(req, res){
 });
 
 app.listen(8787);
-console.log('Express started on port 8787');
+console.log('Express started on port 8080');
