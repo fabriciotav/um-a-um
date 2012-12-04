@@ -67,5 +67,5 @@ app.post('/api/selecoes', function(req, res){
     });
 });
 
-app.listen(8787);
+app.listen(8080);
 console.log('Express started on port 8080');
