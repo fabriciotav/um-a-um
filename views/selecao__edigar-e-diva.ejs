@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <title>Bodas de Ouro - Edigar & Diva</title>
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/selecao.css">
+</head>
+<body>
+
+
+<script type="text/x-handlebars" data-template-name="application">
+
+{{outlet photos}}
+{{outlet login}}
+
+
+</script>
+
+<script type="text/x-handlebars" data-template-name="color-photos">
+<div class="block">
+  <p>Enviando seleção de fotos...</p>
+</div>
+
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="http://um-a-um.com/selecao/edigar-e-diva/">Seleção de Fotos</a>
+    <ul class="nav">
+      <li><a {{action "showInfo"}} id="info" title="Fotos para seleção"><i class="icon-info-sign"></i></a></li>
+      <li class="active" {{action "clickColor"}}><a href="#">Amostras</a></li>
+    </ul>
+  </div>
+</div>
+
+
+
+{{#if amount}}
+<div class="amount-selected">
+  <p>{{amount}}</p>
+  <div>fotos selecionadas</div>
+  <a {{action "sendSelection"}} class="btn btn-info">Enviar seleção</a>
+</div>
+{{/if}}
+
+  <div class="container">
+    <div class="row">
+      <div class="span12">
+      {{outlet sent}}
+
+        {{#each content}}
+          <img {{action "selectPhoto" photo_name}} {{bindAttr src="src"}} class="img-polaroid"></img>
+        {{/each}}      
+      </div>
+    </div>
+  </div>
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="selected-photos">
+<div class="container">
+    <div class="row">
+      <div class="span12">
+      {{#if content}}
+        {{#each content}}
+          <img {{action "removeSelectedPhoto"}} {{bindAttr src="src"}} class="img-polaroid"></img>
+        {{/each}}
+      {{else}}
+      Nenhuma foto selecionada.
+      {{/if}}
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="login">
+<div class="container">
+  <form class="form-signin">
+    <h2 class="form-signin-heading">Login</h2>
+    {{view Ember.TextField id="login-username" class="input-block-level" valueBinding="username" placeholder="Nome de usuário"}}
+
+    {{view Ember.TextField id="login-username" valueBinding="username" class="input-block-level" placeholder="Senha"}}
+    <button class="btn btn-block btn-large btn-info" type="submit">Entrar</button>
+  </form>
+</div> <!-- /container -->
+
+</script>
+
+<script type="text/x-handlebars" data-template-name="sent">
+<div class="alert alert-success">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  Seleção de fotos enviada com sucesso!
+</div>
+</script>
+
+  <script src="/assets/js/jquery-1.8.3.min.js"></script>
+  <script src="/assets/js/handlebars-1.0.rc.1.js"></script>
+  <script src="/assets/js/ember-1.0.0-pre.2.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/js/selecao.js"></script>
+</body>
+</html>
