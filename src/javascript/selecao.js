@@ -247,14 +247,13 @@ App.LoginController = Em.Controller.extend({
 
 // Router
 App.Router = Em.Router.extend({
-    enableLogging: true,
+    enableLogging: false,
     root: Em.Route.extend({
         gotoLogin: Em.Route.transitionTo('root.login'),
         gotoColor: Em.Route.transitionTo('root.color'),
         gotoSelection: Em.Route.transitionTo('root.selection'),
 
         showInfo: function(router, event) {
-            console.log("show info");
             
         },
         clickColor: function(router, event) {
@@ -275,7 +274,6 @@ App.Router = Em.Router.extend({
             // var src = $(event.currentTarget).attr('src');
 
             var photo_name = event.context;
-            console.log("IDDDD", photo_name);
             
             // Verifica se a foto já foi selecionada:
 
@@ -298,10 +296,8 @@ App.Router = Em.Router.extend({
 
             var selecionada = $(event.currentTarget).hasClass('photo-selected');            
             if (selecionada) {
-                console.log("remover");
                 $(event.currentTarget).removeClass('photo-selected');
             } else {
-                console.log("adicionar");
                 $(event.currentTarget).addClass('photo-selected');
             }
 
@@ -309,10 +305,8 @@ App.Router = Em.Router.extend({
 
             // var selecionada = $(event.currentTarget).hasClass('photo-selected');
             // if (selecionada) {
-            //     console.log("remover");
             //     $(event.currentTarget).removeClass('photo-selected');
             // } else {
-            //     console.log("adicionar");
             //     $(event.currentTarget).addClass('photo-selected');
             // }
             
@@ -325,12 +319,10 @@ App.Router = Em.Router.extend({
         removeSelectedPhoto: function(router, event) {
             
             var src = $(event.currentTarget).attr('src');
-            console.log(src);
         },
 
         // Enviar seleção de fotos
         sendSelection: function(router, event) {
-            console.log("enviando seleção");
             $('.block').show();
 
             var selection = router.get('colorPhotosController').get('selection');
@@ -338,7 +330,6 @@ App.Router = Em.Router.extend({
             var obj = [];
 
             selection.forEach(function(element, index){
-                console.log(element);
                 obj.pushObject(element.photo_name);
             });
 
@@ -350,7 +341,6 @@ App.Router = Em.Router.extend({
                 type: 'POST',
                 data: data,
                 success: function(data) {
-                    console.log(data);
 
                     $('.photo-selected').removeClass('photo-selected');
                     
