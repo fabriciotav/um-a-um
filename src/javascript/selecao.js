@@ -1,13 +1,29 @@
 
 // Ember App
-var App = Em.Application.create();
+var Uau = Em.Application.create();
 
 // Model
 
 // View
-App.ApplicationView = Em.View.extend();
+Uau.ApplicationView = Em.View.extend({
+    templateName: 'application',
+    observeWindowChange: function() {
+        if ($(window).scrollTop() > 0) {
+            this.set('showScroll', true);
+        }
+    }.observes('window'),
+    showScroll: true,
 
-App.ColorPhotosView = Em.View.extend({
+    didInsertElement: function() {
+        $('#trash').tooltip({
+            placement: 'left',
+            trigger: 'hover',
+            delay: '1000'
+        });
+    }
+});
+
+Uau.ColorPhotosView = Em.View.extend({
     templateName: 'color-photos',
     didInsertElement: function() {
         $('#info').popover({
@@ -17,27 +33,27 @@ App.ColorPhotosView = Em.View.extend({
     }
 });
 
-App.SelectedPhotosView = Em.View.extend({
+Uau.SelectedPhotosView = Em.View.extend({
     templateName: 'selected-photos'
 });
 
 
-App.SentView = Em.View.extend({
+Uau.SentView = Em.View.extend({
     templateName: 'sent'
 });
 
 
 // Login
-App.LoginView = Em.View.extend({
+Uau.LoginView = Em.View.extend({
     templateName: 'login'
 });
 
 // Controller
-App.ApplicationController = Em.Controller.extend({
+Uau.ApplicationController = Em.Controller.extend({
     linkColor: true
 });
 
-App.ColorPhotosController = Em.ArrayController.extend({
+Uau.ColorPhotosController = Em.ArrayController.extend({
     content: [
 {photo_name: 'IMG_4337', src: '/assets/img/amostras/edigar-e-diva/color/IMG_4337.jpg'},
 {photo_name: 'IMG_4339', src: '/assets/img/amostras/edigar-e-diva/color/IMG_4339.jpg'},
@@ -231,7 +247,7 @@ App.ColorPhotosController = Em.ArrayController.extend({
 });
 
 
-App.SelectedPhotosController = Em.ArrayController.extend({
+Uau.SelectedPhotosController = Em.ArrayController.extend({
     content: [],
     amount: function() {
         var size = this.get('content').length;
@@ -240,13 +256,13 @@ App.SelectedPhotosController = Em.ArrayController.extend({
 });
 
 // Login
-App.LoginController = Em.Controller.extend({
+Uau.LoginController = Em.Controller.extend({
     username: null,
     password: null
 });
 
 // Router
-App.Router = Em.Router.extend({
+Uau.Router = Em.Router.extend({
     enableLogging: false,
     root: Em.Route.extend({
         gotoLogin: Em.Route.transitionTo('root.login'),
@@ -366,6 +382,17 @@ App.Router = Em.Router.extend({
             // }, 1000);
         },
 
+        // Usability actions
+        scrollUp: function(router, event) {
+            window.scrollTo(0, 0);
+        },
+
+        clearSelection: function(router, event) {
+            $('.photo-selected').removeClass('photo-selected');
+            router.get('colorPhotosController')
+                        .set('selection', []);
+        },
+
         index: Em.Route.extend({
             route: '/',
             connectOutlets: function(router) {
@@ -399,4 +426,4 @@ App.Router = Em.Router.extend({
     })
 });
 
-App.initialize();
+Uau.initialize();

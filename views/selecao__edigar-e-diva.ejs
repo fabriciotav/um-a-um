@@ -13,6 +13,12 @@
 {{outlet photos}}
 {{outlet login}}
 
+{{#if view.showScroll}}
+<a {{action "scrollUp"}} class="top">
+  <i class="icon-chevron-up"></i>
+</a>
+{{/if}}
+
 
 </script>
 
@@ -40,6 +46,10 @@
   <div>fotos selecionadas</div>
   <a {{action "sendSelection"}} class="btn btn-info">Enviar seleção</a>
 </div>
+
+<a id="trash" {{action "clearSelection"}} class="clear-selection" title="Limpar seleção">
+  <i class="icon-trash"></i>
+</a>
 {{/if}}
 
   <div class="container">
