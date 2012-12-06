@@ -1,4 +1,6 @@
-var express = require('express');
+// var express = require('express');
+
+module.exports = function(express, app) {
 var nodemailer = require("nodemailer");
 
 // Toda a parte de email
@@ -11,18 +13,14 @@ var smtpTransport = nodemailer.createTransport("SMTP",{
     }
 });
 
-
-
-
-
 // PARTE EXPRESS
 
-var app = express();
+// var app = express();
 app.use(express.bodyParser());
 
 
 // Static files
-app.use('/assets', express.static('assets'));
+app.use('/assets', express.static('um-a-um/assets'));
 
 // Dir das views
 app.set('views', __dirname + '/views');
@@ -67,5 +65,8 @@ app.post('/api/selecoes', function(req, res){
     });
 });
 
-app.listen(8080);
-console.log('Express started on port 8080');
+// app.listen(8080);
+// console.log('Express started on port 8080');
+
+
+}
